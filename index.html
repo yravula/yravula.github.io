@@ -29,11 +29,26 @@
 	</head>
 	<body>
 
-		<div id="preloader" class="preloader">
+		<div id="preloader" class="preloader" aria-hidden="true">
 			<div class="loader-status">
 				<div class="spinner"></div>
 			</div>
 		</div>
+		<script>
+			// Fail-safe for static hosting: never leave the site behind the loader.
+			(function () {
+				function hidePreloader() {
+					var el = document.getElementById('preloader');
+					if (el) {
+						el.style.display = 'none';
+						el.style.visibility = 'hidden';
+					}
+				}
+				setTimeout(hidePreloader, 2500);
+				if (document.readyState === 'complete') hidePreloader();
+				window.addEventListener('load', hidePreloader);
+			})();
+		</script>
 
 		<div class="site-container">
 
